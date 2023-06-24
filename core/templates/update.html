@@ -9,10 +9,10 @@
     {{ pessoa.id }} - {{ pessoa.nome }} - {{ pessoa.sobrenome }} - {{ pessoa.email }} - {{ pessoa.data_nascimento }}
     <form action="{% url 'update' pessoa.id %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="nome" value=""pessoa.nome>
-        <input type="text" name="sobrenome">
-        <input type="text" name="email">
-        <input type="text" name="data_nascimento">
+        <input type="text" name="nome" value="{{ pessoa.nome }}" placeholder="Nome">
+        <input type="text" name="sobrenome" value="{{ pessoa.sobrenome }}" placeholder="Sobrenome">
+        <input type="email" name="email" value="{{ pessoa.email }}" placeholder="Email">
+        <input type="date" name="data_nascimento" value="{{ pessoa.data_nascimento }}" placeholder="Data de Nascimento">
         <button type="submit">Salvar</button>
     </form>
 </body>
