@@ -4,33 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <style>
+        .error {
+            color: red;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function checkFields() {
+            var nome = document.getElementById('nome').value;
+            var sobrenome = document.getElementById('sobrenome').value;
+            var email = document.getElementById('email').value;
+            var data_nascimento = document.getElementById('data_nascimento').value;
+            var salvarButton = document.getElementById('salvar-button');
+
+            if (nome !== '' && sobrenome !== '' && email !== '' && data_nascimento !== '') {
+                salvarButton.disabled = false;
+            } else {
+                salvarButton.disabled = true;
+            }
+        }
+    </script>
 </head>
 <body>
-
-    
     <h2>Cadastrar Nova Pessoa</h2>
     <form action="{% url 'salvar' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="nome" placeholder="Nome">
-        <input type="text" name="sobrenome" placeholder="Sobrenome">
-        <input type="email" name="email" placeholder="Email">
-        <input type="date" name="data_nascimento" placeholder="Data de Nascimento">
-        <button type="submit">Salvar</button>
+        <input type="text" id="nome" name="nome" placeholder="Nome" oninput="checkFields()">
+        <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" oninput="checkFields()">
+        <input type="email" id="email" name="email" placeholder="Email" oninput="checkFields()">
+        <input type="date" id="data_nascimento" name="data_nascimento" placeholder="Data de Nascimento" oninput="checkFields()">
+        <button id="salvar-button" type="submit" disabled>Salvar</button>
     </form>
+
     <h1>Lista de Pessoas</h1>
     <form action="{% url 'pesquisar' %}" method="GET">
         <input type="text" name="search_query">
         <button type="submit">Pesquisar</button>
     </form>
-    <ul>
-        {% for pessoa in pessoas %}
-            <li>{{ pessoa.id }} - {{ pessoa.nome }} - {{ pessoa.sobrenome }} - {{ pessoa.email }} - {{ pessoa.data_nascimento }}
-                <a href="{% url 'editar' pessoa.id %}">Editar</a>
-                <a href="{% url 'delete' pessoa.id %}">Excluir</a>
-            </li>
-        {% endfor %}
-    </ul>
 
-
-</body>
-</html>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in pessoas %}
+            <tr>
+                <td>{{ pessoa.id }}</td>
+                <td>{{ pessoa.nome }}</td>
+                <td>{{ pessoa.sobrenome }}</td>
+                <td>{{ pessoa.email }}</td>
+                <td>{{ pessoa.data_nascimento }}</td>
+                <td>
+                    <a href="{% url 'editar' pessoa.id %}">Editar</a>
+                    <a href="{% url 'delete' pessoa.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body
