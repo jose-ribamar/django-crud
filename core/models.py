@@ -8,4 +8,4 @@ class Pessoa(models.Model):
     data_nascimento = models.DateField()
 
     def __str__(self):
-        return self.nome
+        return self.nome, self.sobrenome, self.email, self.data_nascimento
