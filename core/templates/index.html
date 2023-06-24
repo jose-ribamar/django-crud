@@ -7,8 +7,19 @@
 </head>
 <body>
     hello world
-    {%for pessoas in pessoas %}
-        <li>{{pessoas.id}} - {{pessoas.nome}} - {{pessoas.sobrenome}} - {{pessoas.email}} - {{pessoas.data_nascimento}}</li>
+    <ul>
+    {% for pessoa in pessoas %}
+        <li>{{ pessoa.id }} - {{ pessoa.nome }} - {{ pessoa.sobrenome }} - {{ pessoa.email }} - {{ pessoa.data_nascimento }}</li>
     {% endfor %}
+    </ul>
+
+    <form action="{% url 'salvar' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="nome">
+        <input type="text" name="sobrenome">
+        <input type="text" name="email">
+        <input type="text" name="data_nascimento">
+        <button type="submit">Salvar</button>
+    </form>
 </body>
 </html>
