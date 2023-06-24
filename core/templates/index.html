@@ -6,20 +6,31 @@
     <title>Document</title>
 </head>
 <body>
-    hello world
-    <ul>
-    {% for pessoa in pessoas %}
-        <li>{{ pessoa.id }} - {{ pessoa.nome }} - {{ pessoa.sobrenome }} - {{ pessoa.email }} - {{ pessoa.data_nascimento }}</li>
-    {% endfor %}
-    </ul>
 
+    
+    <h2>Cadastrar Nova Pessoa</h2>
     <form action="{% url 'salvar' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="nome">
-        <input type="text" name="sobrenome">
-        <input type="text" name="email">
-        <input type="text" name="data_nascimento">
+        <input type="text" name="nome" placeholder="Nome">
+        <input type="text" name="sobrenome" placeholder="Sobrenome">
+        <input type="email" name="email" placeholder="Email">
+        <input type="date" name="data_nascimento" placeholder="Data de Nascimento">
         <button type="submit">Salvar</button>
     </form>
+    <h1>Lista de Pessoas</h1>
+    <form action="{% url 'pesquisar' %}" method="GET">
+        <input type="text" name="search_query">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <ul>
+        {% for pessoa in pessoas %}
+            <li>{{ pessoa.id }} - {{ pessoa.nome }} - {{ pessoa.sobrenome }} - {{ pessoa.email }} - {{ pessoa.data_nascimento }}
+                <a href="{% url 'editar' pessoa.id %}">Editar</a>
+                <a href="{% url 'delete' pessoa.id %}">Excluir</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
 </body>
 </html>
