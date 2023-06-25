@@ -1,0 +1,69 @@
+table{
+    background-color: aliceblue;
+}
+.error {
+    color: red;
+}
+
+.delet {
+    color: red;
+
+}
+.edit {
+    color: rgb(95, 98, 234);
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tr{
+background-color: #62997a;
+padding: 10px;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ceecd4;
+}
+
+tr:nth-child(even) {
+    background-color: #f0ffc9;
+}
+
+form {
+    text-align: center;
+}
+
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+ input, button {
+        display: inline-block;
+        width: 200px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        
+    }
+
+    
+    h1, h2, h3{
+        background-color: #3b0819;
+        color: rgb(242, 235, 235);
+        text-align: center;
+    }
+     
