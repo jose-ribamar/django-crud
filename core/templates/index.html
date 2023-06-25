@@ -18,12 +18,15 @@
         }
 
         h1, h2, h3 {
+            padding: 20px;
             color: #ffffff;
         }
         .delet {
              color: red;
 
-}
+        }
+        
+
         body {
             background-color: #a9da88;
         }        
@@ -49,14 +52,15 @@
     </script>
 </head>
 <body>
-    <h1>Cadastrar Nova Pessoa</h1>
+    <p>
+    <h1>Cadastrar Nova Pessoa</h1></p>
     <form action="{% url 'salvar' %}" method="POST">
         {% csrf_token %}
         <input type="text" id="nome" name="nome" placeholder="Nome" oninput="checkFields()"  class="button">
         <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" oninput="checkFields()"  class="button">
         <input type="email" id="email" name="email" placeholder="Email" oninput="checkFields()" class="button">
         <input type="date" id="data_nascimento" name="data_nascimento" placeholder="Data de Nascimento" oninput="checkFields()"  class="button">
-        <button id="salvar-button" type="submit" disabled  class="button">Salvar</button>
+        <button id="salvar-button" type="submit" disabled  class="button">Enviar o Formulário</button>
     </form>
 
     <h2>Lista de Pessoas</h2>
