@@ -1,31 +1,38 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <style>
-        .error {
-            color: red;
+        input, button {      
+            padding: 10px;
+            margin-bottom: 10px;   
         }
-        
-        table {
-            border-collapse: collapse;
-            width: 100%;
+
+        h1, h2, h3 {
+            color: #ffffff;
         }
-        
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+        .delet {
+             color: red;
+
+}
+        body {
+            background-color: #a9da88;
+        }        
     </style>
     <script>
+        function confirmDelete() {
+            return confirm("Você tem certeza que deseja excluir este item?");
+        }
+
         function checkFields() {
             var nome = document.getElementById('nome').value;
             var sobrenome = document.getElementById('sobrenome').value;
@@ -42,26 +49,25 @@
     </script>
 </head>
 <body>
-    <h2>Cadastrar Nova Pessoa</h2>
+    <h1>Cadastrar Nova Pessoa</h1>
     <form action="{% url 'salvar' %}" method="POST">
         {% csrf_token %}
-        <input type="text" id="nome" name="nome" placeholder="Nome" oninput="checkFields()">
-        <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" oninput="checkFields()">
-        <input type="email" id="email" name="email" placeholder="Email" oninput="checkFields()">
-        <input type="date" id="data_nascimento" name="data_nascimento" placeholder="Data de Nascimento" oninput="checkFields()">
-        <button id="salvar-button" type="submit" disabled>Salvar</button>
+        <input type="text" id="nome" name="nome" placeholder="Nome" oninput="checkFields()"  class="button">
+        <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" oninput="checkFields()"  class="button">
+        <input type="email" id="email" name="email" placeholder="Email" oninput="checkFields()" class="button">
+        <input type="date" id="data_nascimento" name="data_nascimento" placeholder="Data de Nascimento" oninput="checkFields()"  class="button">
+        <button id="salvar-button" type="submit" disabled  class="button">Salvar</button>
     </form>
 
-    <h1>Lista de Pessoas</h1>
+    <h2>Lista de Pessoas</h2>
     <form action="{% url 'pesquisar' %}" method="GET">
         <input type="text" name="search_query">
-        <button type="submit">Pesquisar</button>
+        <button type="submit"><i class="fa fa-search">  Pesquisar</i></button>
     </form>
 
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
+            <tr class="tr">
                 <th>Nome</th>
                 <th>Sobrenome</th>
                 <th>Email</th>
@@ -72,17 +78,18 @@
         <tbody>
             {% for pessoa in pessoas %}
             <tr>
-                <td>{{ pessoa.id }}</td>
                 <td>{{ pessoa.nome }}</td>
                 <td>{{ pessoa.sobrenome }}</td>
                 <td>{{ pessoa.email }}</td>
                 <td>{{ pessoa.data_nascimento }}</td>
                 <td>
-                    <a href="{% url 'editar' pessoa.id %}">Editar</a>
-                    <a href="{% url 'delete' pessoa.id %}">Excluir</a>
+                    <a href="{% url 'editar' pessoa.id %}" class="edit"> <i> |   ✎   Editar   |</i> </a>
+                    <a href="{% url 'delete' pessoa.id %}"  onclick="return confirmDelete();" class="delet">|   <i class="fa fa-trash"  class="delete"> Excluir   |</i></a>
                 </td>
             </tr>
-            {% endfor %}
+            {% endfor %}   
         </tbody>
     </table>
-</body
+    <button type="button" class="btn btn-light">Total de Pessoas: {{ pessoas|length }}</button>
+</body>
+</html>
