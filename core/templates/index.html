@@ -25,6 +25,12 @@
              color: red;
 
         }
+
+        .ii {
+    float: right;
+    margin-right: 10px;
+}
+
         
 
         body {
@@ -95,5 +101,6 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-light">Total de Pessoas: {{ pessoas|length }}</button>
+    <a href="{% url 'admin' %}"><button type="button" class="ii">Acessar admin</button></a>
 </body>
 </html>
